@@ -48,6 +48,13 @@ waitForMRAID(async () => {
 
     initGrid();
     checkAndCollapse();
+
+    window.addEventListener('resize', onResize);
+    window.addEventListener("orientationchange", () => {
+        window.dispatchEvent(new Event("resize"));
+    }, false);
+
+    onResize();
 });
 
 async function loadResources() {
@@ -70,12 +77,15 @@ function initGrid() {
             gridContainer.addChild(tile);
         }
     }
+}
 
+function onResize() {
     const totalWidth = GRID_SIZE * TILE_SIZE;
     const totalHeight = GRID_SIZE * TILE_SIZE;
 
-    gridContainer.x = (window.innerWidth - totalWidth) / 2;
-    gridContainer.y = (window.innerHeight - totalHeight) / 2;
+    const scale = Math.min(window.innerWidth / totalWidth, window.innerHeight / totalHeight) * 0.9;
+    gridContainer.scale.set(scale);
+    gridContainer.position.set(window.innerWidth / 2 - (totalWidth * scale / 2), window.innerHeight / 2 - (totalHeight * scale / 2));
 }
 
 function checkAndCollapse() {
