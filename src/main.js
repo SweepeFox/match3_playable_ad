@@ -83,6 +83,8 @@ function onResize() {
     const totalWidth = GRID_SIZE * TILE_SIZE;
     const totalHeight = GRID_SIZE * TILE_SIZE;
 
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+
     const scale = Math.min(window.innerWidth / totalWidth, window.innerHeight / totalHeight) * 0.9;
     gridContainer.scale.set(scale);
     gridContainer.position.set(window.innerWidth / 2 - (totalWidth * scale / 2), window.innerHeight / 2 - (totalHeight * scale / 2));
