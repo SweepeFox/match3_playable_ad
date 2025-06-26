@@ -23,7 +23,7 @@ const TILES_CONFIG = [
     { type: 'wind', texture: windImage },
 ];
 
-let app, grid, gridContainer, draggingTile, originTile = null;
+let app, grid, gridContainer, draggingTile, background, originTile = null;
 
 waitForMRAID(async () => {
     app = new Application();
@@ -39,7 +39,7 @@ waitForMRAID(async () => {
     const gameContainer = document.getElementById('gameContainer');
     gameContainer.appendChild(app.canvas);
 
-    const background = Sprite.from(backgroundImage);
+    background = Sprite.from(backgroundImage);
     background.setSize(window.innerWidth, window.innerHeight);
     app.stage.addChild(background);
 
@@ -84,6 +84,7 @@ function onResize() {
     const totalHeight = GRID_SIZE * TILE_SIZE;
 
     app.renderer.resize(window.innerWidth, window.innerHeight);
+    background.setSize(window.innerWidth, window.innerHeight);
 
     const scale = Math.min(window.innerWidth / totalWidth, window.innerHeight / totalHeight) * 0.9;
     gridContainer.scale.set(scale);
